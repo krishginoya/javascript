@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="marksheet-1.css">
+    <title>Marksheet Result</title>
+</head>
+<body>
+   
+    <div class="marksheet-container">
+        <div class="student-name" id="studentName"></div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="marksTableBody">
+                <!-- Marks will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        
+        <div class="result-message" id="resultMessage" ></div>
+        <br>
+        <a href="marksheet.html" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Get student name
+        const studentName = urlParams.get('name');
+        document.getElementById('studentName').textContent = studentName;
+        
+        // Subjects data
+        const subjects = [
+            { name: 'English', param: 'English' },
+            { name: 'Economics', param: 'Economics' },
+            { name: 'Commerce', param: 'Commerce' },
+            { name: 'Accountancy', param: 'Accountancy' },
+            { name: 'Business Studies', param: 'Business Studies' }
+        ];
+        
+        const tableBody = document.getElementById('marksTableBody');
+        let totalMarks = 0;
+        let isFailed = false;
+        
+        // Process each subject
+        subjects.forEach(subject => {
+            const marks = parseInt(urlParams.get(subject.param));
+            totalMarks += marks;
+            
+            // Calculate grade
+            let grade;
+            if (marks >= 90) grade = 'A+';
+            else if (marks >= 80) grade = 'A';
+            else if (marks >= 70) grade = 'B';
+            else if (marks >= 60) grade = 'C';
+            else if (marks >= 35) grade = 'D';
+            else {
+                grade = 'F (Fail)';
+                isFailed = true;
+            }
+            
+            // Create table row
+            const row = document.createElement('tr');
+            if (marks < 35) row.classList.add('fail');
+            
+            row.innerHTML = `
+                <td>${subject.name}</td>
+                <td>${marks}</td>
+                <td>${grade}</td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+        
+        // Calculate percentage
+        const percentage = (totalMarks / (subjects.length * 100)) * 100;
+        
+        // Display result message
+        const resultMessage = document.getElementById('resultMessage');
+        if (isFailed) {
+            resultMessage.textContent = 'Better luck next time!';
+            resultMessage.classList.add('fail-message');
+        } else {
+            resultMessage.textContent = `mission successfull ${percentage.toFixed(2)}%`;
+            resultMessage.classList.add('pass');
+        }
+    </script>
+</body>
+</html>
