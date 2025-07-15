@@ -9,7 +9,7 @@
   <textarea id="inputText" rows="4" cols="50" placeholder="Type your string here..."></textarea><br>
 
   <button onclick="applyTrim()">Trim</button>
-  <button onclick="applyReplace()">Replace ("a" with "z")</button>
+  <button onclick="applyReplace()">Replace ("d" with "k")</button>
   <button onclick="applySplit()">Split (by space)</button>
   <button onclick="applySlice()">Slice (0, 5)</button>
   <button onclick="applySubstring()">Substring (0, 5)</button>
@@ -25,7 +25,7 @@
     }
 
     function displayResult(result) {
-      document.getElementById("result").textContent = Array.isArray(result) ? result.join(", ") : result;
+      document.getElementById("result").textContent =  result;
     }
 
     function applyTrim() {
@@ -33,12 +33,13 @@
     }
 
     function applyReplace() {
-      displayResult(getInput().replace(/a/g, "z")); // replace 'a' with 'z'
+      displayResult(getInput().replaceAll("d", "k")); // replace 'd' with 'k'
     }
 
     function applySplit() {
-      displayResult(getInput().split(""));
+      displayResult(getInput().split(" "));
     }
+
 
     function applySlice() {
       displayResult(getInput().slice(0, 5));
