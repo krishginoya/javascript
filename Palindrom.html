@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>Palindrom</title>
+</head>
+
+<body>
+    <script>
+        var num = 579;
+        var rev = 0;
+        var rem = 0;
+        var a = num;
+
+        while (num != 0) {
+            rem = num % 10;
+            rev = rev * 10 + rem;
+            num = parseInt(num / 10);
+        }
+        if (rev == a) {
+            document.write("This is palidrom")
+        }
+        else {
+            document.write(" Is not a  palidrom")
+        }
+
+
+    </script>
+</body>
+
+</html>
